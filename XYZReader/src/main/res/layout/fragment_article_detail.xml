@@ -8,7 +8,8 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_container"
@@ -16,7 +17,8 @@
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            app:toolbarId="@+id/toolbar"
+            android:fitsSystemWindows="true">
 
             <View
                 android:layout_width="match_parent"
@@ -27,9 +29,9 @@
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -60,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:padding="8dp"
-                android:background="@color/color_primary"/>
+                android:background="@color/color_primary" />
 
             <TextView
                 android:id="@+id/article_body"

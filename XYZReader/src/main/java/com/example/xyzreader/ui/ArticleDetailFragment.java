@@ -5,11 +5,15 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -18,11 +22,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -79,10 +86,6 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);
     }
 
-    public ArticleDetailActivity getActivityCast() {
-        return (ArticleDetailActivity) getActivity();
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -132,10 +135,9 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
         final TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
-        TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
+        final TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
 
 
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
@@ -168,8 +170,24 @@ public class ArticleDetailFragment extends Fragment implements
             }
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             String photoUrl = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
-            Picasso.with(getActivity()).load(photoUrl).into(mPhotoView);
+            //Picasso.with(getActivity()).load(photoUrl).into(mPhotoView);
 
+            Picasso.with(getActivity()).load(photoUrl).into(mPhotoView,
+                    PicassoPalette.with(photoUrl, mPhotoView)
+                            .use(PicassoPalette.Profile.MUTED_DARK)
+                            .intoCallBack(new PicassoPalette.CallBack() {
+                                @Override
+                                public void onPaletteLoaded(Palette palette) {
+                                    int mutedColor = palette.getMutedColor(0xFF333333);
+                                    mCollapsingToolbarLayout.setContentScrimColor(mutedColor);
+                                    bylineView.setBackgroundColor(mutedColor);
+                                    bodyView.setTextColor(palette.getDarkVibrantColor(mutedColor));
+                                    bodyView.setLinkTextColor(palette.getLightVibrantColor(mutedColor));
+
+                                }
+                            })
+            );
+            bylineView.setTextColor(Color.parseColor("#AAFFFFFF"));
         } else {
             mRootView.setVisibility(View.GONE);
             bylineView.setText("N/A");
