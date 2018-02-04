@@ -27,10 +27,10 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="4dp"
+            android:paddingStart="@dimen/article_title_base_padding"
+            android:paddingTop="@dimen/article_title_base_padding"
+            android:paddingEnd="@dimen/article_title_base_padding"
+            android:paddingBottom="@dimen/article_title_bottom_padding"
             android:textColor="@color/color_accent"
             android:ellipsize="end"
             android:maxLines="4" />
@@ -43,7 +43,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:textColor="#6000"
+            android:textColor="@color/article_subtitle_color"
             android:maxLines="2"
             android:ellipsize="end" />
     </LinearLayout>

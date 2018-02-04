@@ -38,7 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="?attr/homeAsUpIndicator"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
@@ -84,5 +83,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_share" />
+        android:src="@drawable/ic_share"
+        android:elevation="@dimen/fab_elevation"/>
 </android.support.design.widget.CoordinatorLayout>

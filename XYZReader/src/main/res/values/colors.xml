@@ -22,4 +22,5 @@
     <color name="color_primary_dark">#bf360c</color>
     <color name="color_accent">#04561A</color>
     <color name="color_light_gray">#ffe0e0e0</color>
+    <color name="article_subtitle_color">#6000</color>
 </resources>
